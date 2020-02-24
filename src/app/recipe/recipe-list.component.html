@@ -1,0 +1,8 @@
+<p>List of Recipes</p>
+<div class="row" *ngIf='recipes'>
+    <div class='card col-md-4' *ngFor='let recipe of recipes'>
+        <p>Name: {{recipe.name}}</p>
+        <p>Description: {{recipe.description}}</p>
+        <p>Tags: {{recipe.tags}}</p>
+    </div>
+</div>
