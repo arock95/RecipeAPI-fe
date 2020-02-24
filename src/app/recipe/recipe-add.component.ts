@@ -3,6 +3,7 @@ import {IRecipe} from './IRecipe';
 import{NgForm} from '@angular/forms';
 import { from } from 'rxjs';
 import { DataService } from '../data/data.service';
+import { ISubmitRecipe } from './ISubmitRecipe';
 
 @Component({
   selector: 'app-recipe-add',
@@ -11,7 +12,7 @@ import { DataService } from '../data/data.service';
 })
 export class RecipeAddComponent implements OnInit {
 
-  @Output() newRecipe: EventEmitter<IRecipe> = new EventEmitter<IRecipe>();
+  @Output() newRecipe: EventEmitter<ISubmitRecipe> = new EventEmitter<ISubmitRecipe>();
   originalRecipe: IRecipe = {
     name: "",
     description: "",
@@ -19,6 +20,7 @@ export class RecipeAddComponent implements OnInit {
   };
   copyRecipe: IRecipe = {... this.originalRecipe};
   formInvalid:Boolean;
+  submitRecipe: ISubmitRecipe;
 
   constructor(private dataService: DataService) { }
 
@@ -28,15 +30,23 @@ export class RecipeAddComponent implements OnInit {
   onSubmit(form: NgForm){
     if (form.valid){
       this.originalRecipe = {... this.copyRecipe};
-      this.newRecipe.emit(this.originalRecipe);
+      
+      
+      //convert from irecipe to isubmitrecipe for tags array
+      this.submitRecipe = {
+        name: this.originalRecipe.name,
+        description: this.originalRecipe.description,
+        tags: this.originalRecipe.tags.split(' ')
+      }
+      this.dataService.postForm(this.submitRecipe).subscribe(
+        result => console.log("success", result),
+        error => console.log("error", error)
+      );
+      this.newRecipe.emit(this.submitRecipe);
       this.originalRecipe = {name:"", description:"",tags:""}
       this.copyRecipe = {... this.originalRecipe};
       form.reset();
       this.formInvalid = false;
-      this.dataService.postForm(this.originalRecipe).subscribe(
-        result => console.log("success", result),
-        error => console.log("error", error)
-      );
     }
     else{ this.formInvalid = true;}
   }

@@ -6,3 +6,6 @@
         <p>Tags: {{recipe.tags}}</p>
     </div>
 </div>
+<div *ngIf='recipes.length == 0'>
+    No recipes yet
+</div>

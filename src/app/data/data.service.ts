@@ -2,15 +2,21 @@ import { Injectable } from '@angular/core';
 import { IRecipe } from '../recipe/IRecipe';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import {ISubmitRecipe} from '../recipe/ISubmitRecipe';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class DataService {
-  postUrl:string = 'http://localhost:52397/api/recipe';
+  apiUrl:string = 'http://localhost:52397/api/recipe';
   constructor(private http: HttpClient) { }
 
-  postForm(recipe: IRecipe): Observable<any>{
-    return this.http.post(this.postUrl, recipe);
+  postForm(recipe: ISubmitRecipe): Observable<any>{
+    return this.http.post(this.apiUrl, recipe);
+  }
+
+  getAllRecipes(): Observable<any>{
+    return this.http.get(this.apiUrl);
   }
 }
