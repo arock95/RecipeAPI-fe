@@ -1,3 +1,13 @@
+<h1>List of Recipes</h1>
+
+<div>
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <label for="tag">Search By Tag:</label>
+      <input name="tag" id="tag" placeholder="tag" #name="ngModel" required [(ngModel)]="tag" />
+      <button type="submit">Search By Tag</button>
+    </form>
+</div>
+
 <div class="row">
   <div class="col-md-9">
     <app-recipe-list [recipes]='recipessvc'></app-recipe-list>

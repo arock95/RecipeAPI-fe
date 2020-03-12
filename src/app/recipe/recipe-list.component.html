@@ -1,11 +1,18 @@
-<p>List of Recipes</p>
-<div class="row" *ngIf='recipes'>
-    <div class='card col-md-4' *ngFor='let recipe of recipes'>
-        <p>Name: {{recipe.name}}</p>
-        <p>Description: {{recipe.description}}</p>
-        <p>Tags: {{recipe.tags}}</p>
-    </div>
+
+<div class="row" *ngIf="recipes">
+  <div class="card col-md-4" *ngFor="let recipe of recipes">
+    <p>Name: {{ recipe.name }}</p>
+    <p>Description: {{ recipe.description }}</p>
+    <p>Tags: {{ recipe.tags }}</p>
+    <form #form="ngForm" (ngSubmit)="onSubmitDelete(form)">
+      <input type="hidden" value="{{recipe.id}}"/>
+      <button>Delete</button>
+    </form>
+    
+    <button>Update</button>
+  </div>
 </div>
-<div *ngIf='recipes.length == 0'>
-    No recipes yet
+
+<div *ngIf="recipes.length == 0">
+  No recipes yet
 </div>
