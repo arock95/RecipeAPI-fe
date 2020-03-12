@@ -4,7 +4,8 @@
         <input type="text" placeholder="Recipe Name" name="name" 
         #name="ngModel" required [(ngModel)]="copyRecipe.name"
         [class.error] ="(name.touched && name.invalid) || formInvalid==true">
-        <input type="text" placeholder="Recipe Description" name="description" [(ngModel)]="copyRecipe.description">
+        <textarea placeholder="Recipe Description" name="description" [(ngModel)]="copyRecipe.description">
+        </textarea>
         <input type="text" placeholder="list of tags" name="tags" [(ngModel)]="copyRecipe.tags">
         <br>
         <button type="submit" >Add Recipe!</button>
